@@ -6,6 +6,7 @@
 #include <pp_allocator.h>
 #include <iterator>
 #include <mutex>
+#include <cstring>
 
 class allocator_boundary_tags final :
     public smart_mem_resource,
@@ -25,43 +26,43 @@ private:
     void *_trusted_memory;
 
 public:
-    
+
     ~allocator_boundary_tags() override;
-    
+
     allocator_boundary_tags(allocator_boundary_tags const &other);
-    
+
     allocator_boundary_tags &operator=(allocator_boundary_tags const &other);
-    
+
     allocator_boundary_tags(
         allocator_boundary_tags &&other) noexcept;
-    
+
     allocator_boundary_tags &operator=(
         allocator_boundary_tags &&other) noexcept;
 
 public:
-    
+
     explicit allocator_boundary_tags(
             size_t space_size,
             std::pmr::memory_resource *parent_allocator = nullptr,
             allocator_with_fit_mode::fit_mode allocate_fit_mode = allocator_with_fit_mode::fit_mode::first_fit);
 
 private:
-    
+
     [[nodiscard]] void *do_allocate_sm(
         size_t bytes) override;
-    
+
     void do_deallocate_sm(
         void *at) override;
 
     bool do_is_equal(const std::pmr::memory_resource& other) const noexcept override;
 
 public:
-    
+
     inline void set_fit_mode(
         allocator_with_fit_mode::fit_mode mode) override;
 
 public:
-    
+
     std::vector<allocator_test_utils::block_info> get_blocks_info() const override;
 
 private:
