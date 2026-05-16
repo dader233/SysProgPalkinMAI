@@ -1,8 +1,7 @@
 #include <not_implemented.h>
 #include "../include/allocator_global_heap.h"
 
-#include <new>
-#include <mutex>
+
 #include <cstddef>
 
 allocator_global_heap::allocator_global_heap() = default;
